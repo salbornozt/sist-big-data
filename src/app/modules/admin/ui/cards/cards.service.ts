@@ -10,7 +10,7 @@ export class CardsService {
 // Private
   
   private _contacts: BehaviorSubject<Book[] | null> = new BehaviorSubject(null);
-
+  private recomendationLink = "assets/myfile.csv"  
   constructor(private _httpClient: HttpClient) { }
   /**
      * Getter for contact
@@ -27,5 +27,14 @@ export class CardsService {
                 this._contacts.next(contacts);
             })
         );
+    }
+/*
+    getRecomendations()
+    {
+        
+        return this._httpClient.get<any>(this.recomendationLink, {responseType : "text"})
+    }*/
+    readCsvData () {
+        return this._httpClient.get(this.recomendationLink, {responseType : 'text'})
     }
 }

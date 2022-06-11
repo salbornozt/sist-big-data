@@ -25,7 +25,9 @@ export class CardsComponent implements AfterViewInit, OnInit
     filters: string[] = ['all', 'article', 'listing', 'list', 'info', 'shopping', 'pricing', 'testimonial', 'post', 'interactive'];
     numberOfCards: any = {};
     selectedFilter: string = 'all';
+    covidData: any[] = [];
     contacts$: Observable<Book[]>;
+    books: Book[];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -44,17 +46,50 @@ export class CardsComponent implements AfterViewInit, OnInit
                 // Update the counts
                 //this.contactsCount = contacts.length;
                 console.log('sat tag '+contacts);
+                this.books = contacts
                 
                 // Mark for check
                 //this._changeDetectorRef.markForCheck();
             });
-    }
 
+        this._cardService.readCsvData()
+            .subscribe((result: any) => {
+                const list = result.split('\n');
+
+                list.forEach( e => {
+
+                    this.covidData.push(e);
+                    //console.log(e);
+                })
+                
+                
+
+                // Update the counts
+                //this.contactsCount = contacts.length;
+                //console.log('sat tag '+contacts);
+                
+                // Mark for check
+                //this._changeDetectorRef.markForCheck();
+            });
+
+    }
+    getRecomendation(pos:number):void
+    {
+        let aux = this.covidData[pos].split(",")
+        let recomendation1 = aux[aux.length-5]
+        let recomendation2 = aux[aux.length-4]
+        let recomendation3 = aux[aux.length-3]
+        let recomendation4 = aux[aux.length-2]
+        let recomendation5 = aux[aux.length-1]
+        console.log(this.books[recomendation1].title);
+        
+
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
-
+    
     /**
      * After view init
      */
