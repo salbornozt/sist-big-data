@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, 
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { FuseCardComponent } from '@fuse/components/card';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import Swal from 'sweetalert2';
 import { Book } from './card.types';
 import { CardsService } from './cards.service';
 
@@ -76,15 +77,62 @@ export class CardsComponent implements AfterViewInit, OnInit
     getRecomendation(pos:number):void
     {
         let aux = this.covidData[pos].split(",")
-        let recomendation1 = aux[aux.length-5]
-        let recomendation2 = aux[aux.length-4]
-        let recomendation3 = aux[aux.length-3]
-        let recomendation4 = aux[aux.length-2]
-        let recomendation5 = aux[aux.length-1]
-        console.log(this.books[recomendation1].title);
+        let msg = ""
+        let recomendation1 = aux[2]
+        let r1 = this.limit (recomendation1)
+        let recomendation2 = aux[3]
+        let r2 = this.limit (recomendation2)
+        let recomendation3 = aux[4]
+        let r3 = this.limit (recomendation3)
+        let recomendation4 = aux[5]
+        let r4 = this.limit (recomendation4)
+        let recomendation5 = aux[6]
+        let r5 = this.limit (recomendation5)
+
+
+        //console.log(this.books[recomendation1].title);
+
         
+        if(r1 == true){
+            msg = "> "+ this.books[recomendation1].title + '<br>'           
+        }if(r2 == true){
+            msg +="> "+this.books[recomendation2].title+ "<br>"   
+        }if(r3 == true){
+            msg +="> "+ this.books[recomendation3].title+ "<br>"   
+        }if(r4 == true){
+            msg +="> "+ this.books[recomendation4].title+ "<br>"   
+        }if(r5 == true){
+            msg +="> "+ this.books[recomendation5].title+ "<br>"   
+        }
+
+        if(msg==""){
+            msg= "No sabriamos que recomendarte, lo sentimos  😞"
+        }
+        
+        Swal.fire({
+            title:'Recomendaciones',
+            html: msg,
+            padding: '3em',
+            color: '#716add',
+            background: '#fff url(/images/trees.png)',
+            backdrop: `
+                rgba(0,0,123,0.4)
+                url("/images/nyan-cat.gif")
+                left top
+                no-repeat
+            `
+        })
 
     }
+
+    limit(cod:number):boolean{
+        if(cod<110){
+            return true
+        }else
+        return false
+    }
+
+    
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
