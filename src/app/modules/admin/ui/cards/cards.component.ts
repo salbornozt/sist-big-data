@@ -40,13 +40,26 @@ export class CardsComponent implements AfterViewInit, OnInit
     ngOnInit(): void {
         // Get the contacts
         this.contacts$ = this._cardService.contacts$;
-        this._cardService.getContacts()
+        this._cardService.getContacts2()
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((contacts: Book[]) => {
 
                 // Update the counts
                 //this.contactsCount = contacts.length;
-                console.log('sat tag '+contacts);
+                //console.log('sat tag '+contacts.length);
+                //this.books = contacts
+                
+                // Mark for check
+                //this._changeDetectorRef.markForCheck();
+            });
+
+            this._cardService.getContacts()
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((contacts: Book[]) => {
+
+                // Update the counts
+                //this.contactsCount = contacts.length;
+                console.log('sat tag '+contacts.length);
                 this.books = contacts
                 
                 // Mark for check
@@ -78,32 +91,39 @@ export class CardsComponent implements AfterViewInit, OnInit
     {
         let aux = this.covidData[pos].split(",")
         let msg = ""
-        let recomendation1 = aux[2]
+        let recomendation1 = Number(aux[2])
         let r1 = this.limit (recomendation1)
-        let recomendation2 = aux[3]
+        let recomendation2 = Number(aux[3])
         let r2 = this.limit (recomendation2)
-        let recomendation3 = aux[4]
+        let recomendation3 = Number(aux[4])
         let r3 = this.limit (recomendation3)
-        let recomendation4 = aux[5]
+        let recomendation4 = Number(aux[5])
         let r4 = this.limit (recomendation4)
-        let recomendation5 = aux[6]
+        let recomendation5 = Number(aux[6])
         let r5 = this.limit (recomendation5)
-
+        console.log(this.books[Number(recomendation5)].title);
+        console.log(recomendation5);
+        console.log(this.books[recomendation5]);
+        console.log(this.books[recomendation4]);
+        console.log(this.books[recomendation3]);
+        console.log(this.books[recomendation2]);
+        console.log(this.books[recomendation1]);
+        
 
         //console.log(this.books[recomendation1].title);
 
         
-        if(r1 == true){
+        
             msg = "> "+ this.books[recomendation1].title + '<br>'           
-        }if(r2 == true){
+        
             msg +="> "+this.books[recomendation2].title+ "<br>"   
-        }if(r3 == true){
+        
             msg +="> "+ this.books[recomendation3].title+ "<br>"   
-        }if(r4 == true){
+        
             msg +="> "+ this.books[recomendation4].title+ "<br>"   
-        }if(r5 == true){
+        
             msg +="> "+ this.books[recomendation5].title+ "<br>"   
-        }
+        
 
         if(msg==""){
             msg= "No sabriamos que recomendarte, lo sentimos  😞"

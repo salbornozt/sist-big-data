@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, map } from 'rxjs';
 import { assign, cloneDeep } from 'lodash-es';
 import {books as bookData} from 'app/mock-api/common/books/data'
+import {books2 as bookData2} from 'app/mock-api/common/books/data2'
 import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
 
 @Injectable({
@@ -10,6 +11,7 @@ import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
 export class BooksService {
 
     private _books: any[] = bookData;
+    private _books2: any[] = bookData2;
     
 
     /**
@@ -39,6 +41,20 @@ export class BooksService {
 
                 // Clone the contacts
                 const contacts = cloneDeep(this._books);
+
+                // Sort the contacts by the name field by default
+                contacts.sort((a, b) => a.title.localeCompare(b.title));
+
+                // Return the response
+                return [200, contacts];
+            });
+
+            this._fuseMockApiService
+            .onGet('api/apps/common/books/200')
+            .reply(() => {
+
+                // Clone the contacts
+                const contacts = cloneDeep(this._books2);
 
                 // Sort the contacts by the name field by default
                 contacts.sort((a, b) => a.title.localeCompare(b.title));

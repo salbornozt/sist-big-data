@@ -12,5 +12,7 @@ export class ExampleComponent
      */
     constructor()
     {
+        window.location.href='https://movies-rs-ueb.herokuapp.com/';
+
     }
 }

@@ -31,9 +31,24 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
         id   : 'user-interface.cards',
-        title: 'Cards',
+        title: 'Libros',
         type : 'basic',
         icon : 'heroicons_outline:duplicate',
         link : '/ui/cards'
     },
+    {
+        id   : 'user-interface.cards',
+        title: 'Canciones',
+        type : 'basic',
+        icon : 'heroicons_outline:duplicate',
+        link : '/ui/colors'
+    },
+    {
+        id   : 'user-interface.cards',
+        title: 'Peliculas',
+        type : 'basic',
+        icon : 'heroicons_outline:duplicate',
+        link : '/example'
+    },
+    
 ];

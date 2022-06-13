@@ -22,7 +22,12 @@ export class CardsService {
 
    getContacts(): Observable<Book[]>
     {
-        return this._httpClient.get<Book[]>('api/apps/common/books/all').pipe(
+        return this._httpClient.get<Book[]>('api/apps/common/books/all')
+    }
+
+    getContacts2(): Observable<Book[]>
+    {
+        return this._httpClient.get<Book[]>('api/apps/common/books/200').pipe(
             tap((contacts) => {
                 this._contacts.next(contacts);
             })
